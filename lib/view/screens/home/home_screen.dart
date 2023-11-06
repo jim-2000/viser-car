@@ -10,6 +10,7 @@ import 'package:customer/data/services/api_service.dart';
 import 'package:customer/view/components/bottom-sheet/bottom_sheet_header_row.dart';
 import 'package:customer/view/components/bottom-sheet/custom_bottom_sheet.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
+import 'package:customer/view/components/custom_loader/custom_loader.dart';
 import 'package:customer/view/components/image/custom_svg_picture.dart';
 import 'package:customer/view/components/text-form-field/custom_text_field.dart';
 import 'package:customer/view/components/text-form-field/my_custom_text_field.dart';
@@ -17,6 +18,8 @@ import 'package:customer/view/components/text/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,12 +29,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Position? _currentPosition;
+  String _currentAddress = "";
+
   @override
   void initState() {
     Get.put(ApiClient(sharedPreferences: Get.find()));
     Get.put(HomeRepo(apiClient: Get.find()));
-    Get.put(HomeController(homeRepo: Get.find()));
+    final controller = Get.put(HomeController(homeRepo: Get.find()));
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.initialData();
+    });
   }
 
   @override
@@ -40,177 +49,183 @@ class _HomeScreenState extends State<HomeScreen> {
       child: GetBuilder<HomeController>(builder: (controller) {
         return Scaffold(
           backgroundColor: MyColor.screenBgColor,
-          body: SingleChildScrollView(
-            // padding: const EdgeInsets.symmetric(horizontal: Dimensions.space15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _homeAppbar(context),
-                const SizedBox(height: Dimensions.space20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.space15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.zero,
-                        width: context.width,
-                        height: context.orientation == Orientation.landscape ? 120 : 126,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: const DecorationImage(
-                            image: AssetImage(MyImages.banner),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.space20),
-                      HeaderText(text: MyStrings.selectService, textStyle: boldLarge.copyWith(fontSize: 16)),
-                      const SizedBox(height: Dimensions.space15),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Row(
-                          children: List.generate(
-                            controller.serviceName.length,
-                            (index) => GestureDetector(
-                              onTap: () => controller.selectService(controller.serviceName[index]),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                                margin: const EdgeInsets.only(right: 8),
-                                width: context.orientation == Orientation.landscape ? 120 : 100,
-                                height: context.orientation == Orientation.landscape ? 120 : 100,
+          body: controller.isLoading
+              ? const CustomLoader()
+              : SingleChildScrollView(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      controller.initialData(shouldLoad: true);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _homeAppbar(context, controller),
+                        const SizedBox(height: Dimensions.space20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: Dimensions.space15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.zero,
+                                width: context.width,
+                                height: context.orientation == Orientation.landscape ? 120 : 126,
                                 decoration: BoxDecoration(
-                                  color: MyColor.colorWhite,
-                                  borderRadius: BorderRadius.circular(16),
-                                  border: controller.serviceName[index] == controller.selectedId
-                                      ? Border.all(
-                                          color: MyColor.primaryColor,
-                                          width: 2.2,
-                                        )
-                                      : Border.all(
-                                          color: MyColor.colorGrey2,
-                                          width: 1.2,
-                                        ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      controller.serviceicon[index],
-                                      height: 30,
-                                    ),
-                                    const SizedBox(height: Dimensions.space10),
-                                    Text(
-                                      controller.serviceName[index],
-                                      style: regularDefault.copyWith(),
-                                    )
-                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: const DecorationImage(
+                                    image: AssetImage(MyImages.banner),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.space20),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
-                        decoration: BoxDecoration(color: MyColor.colorWhite, borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)), boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400.withOpacity(0.07),
-                            spreadRadius: 4,
-                            blurRadius: 2,
-                            offset: const Offset(0, 3),
-                          ),
-                        ]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HeaderText(text: MyStrings.selectDestination, textStyle: boldLarge.copyWith(fontSize: 16)),
-                            const SizedBox(height: Dimensions.space15),
-                            CustomTextField(
-                              onChanged: (val) {},
-                              animatedLabel: true,
-                              needOutlineBorder: true,
-                              labelText: MyStrings.pickUplocation.tr,
-                              radius: Dimensions.mediumRadius,
-                            ),
-                            const SizedBox(height: Dimensions.space20),
-                            CustomTextField(
-                              onChanged: (val) {},
-                              animatedLabel: true,
-                              needOutlineBorder: true,
-                              labelText: MyStrings.destination.tr,
-                              hintText: "",
-                              radius: Dimensions.mediumRadius,
-                            ),
-                            const SizedBox(height: Dimensions.space20),
-                            CustomTextField(
-                              onChanged: (val) {},
-                              animatedLabel: true,
-                              needOutlineBorder: true,
-                              hintText: "",
-                              labelText: MyStrings.offeryourRate.tr,
-                              radius: Dimensions.mediumRadius,
-                            ),
-                            const SizedBox(height: Dimensions.space20),
-                            InkWell(
-                              onTap: () {
-                                CustomBottomSheet(
-                                  child: Container(
-                                    height: context.height / 1.6,
-                                    color: MyColor.colorWhite,
-                                    child: const Column(
-                                      children: [BottomSheetHeaderRow()],
+                              const SizedBox(height: Dimensions.space20),
+                              HeaderText(text: MyStrings.selectService, textStyle: boldLarge.copyWith(fontSize: 16)),
+                              const SizedBox(height: Dimensions.space15),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                child: Row(
+                                  children: List.generate(
+                                    controller.serviceName.length,
+                                    (index) => GestureDetector(
+                                      onTap: () => controller.selectService(controller.serviceName[index]),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                                        margin: const EdgeInsets.only(right: 8),
+                                        width: context.orientation == Orientation.landscape ? 120 : 100,
+                                        height: context.orientation == Orientation.landscape ? 120 : 100,
+                                        decoration: BoxDecoration(
+                                          color: MyColor.colorWhite,
+                                          borderRadius: BorderRadius.circular(16),
+                                          border: controller.serviceName[index] == controller.selectedId
+                                              ? Border.all(
+                                                  color: MyColor.primaryColor,
+                                                  width: 2.2,
+                                                )
+                                              : Border.all(
+                                                  color: MyColor.colorGrey2,
+                                                  width: 1.2,
+                                                ),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                              controller.serviceicon[index],
+                                              height: 30,
+                                            ),
+                                            const SizedBox(height: Dimensions.space10),
+                                            Text(
+                                              controller.serviceName[index],
+                                              style: regularDefault.copyWith(),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ).customBottomSheet(context);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(border: Border.all(color: MyColor.borderColor, width: 0.5), borderRadius: BorderRadius.circular(8)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                ),
+                              ),
+                              const SizedBox(height: Dimensions.space20),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+                                decoration: BoxDecoration(color: MyColor.colorWhite, borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)), boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade400.withOpacity(0.07),
+                                    spreadRadius: 4,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ]),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(MyStrings.paymentMethod.tr, style: regularDefault),
-                                      ],
+                                    HeaderText(text: MyStrings.selectDestination, textStyle: boldLarge.copyWith(fontSize: 16)),
+                                    const SizedBox(height: Dimensions.space15),
+                                    CustomTextField(
+                                      onChanged: (val) {},
+                                      animatedLabel: true,
+                                      needOutlineBorder: true,
+                                      labelText: MyStrings.pickUplocation.tr,
+                                      radius: Dimensions.mediumRadius,
                                     ),
-                                    const Icon(Icons.arrow_drop_down, color: MyColor.colorGrey),
+                                    const SizedBox(height: Dimensions.space20),
+                                    CustomTextField(
+                                      onChanged: (val) {},
+                                      animatedLabel: true,
+                                      needOutlineBorder: true,
+                                      labelText: MyStrings.destination.tr,
+                                      hintText: "",
+                                      radius: Dimensions.mediumRadius,
+                                    ),
+                                    const SizedBox(height: Dimensions.space20),
+                                    CustomTextField(
+                                      onChanged: (val) {},
+                                      animatedLabel: true,
+                                      needOutlineBorder: true,
+                                      hintText: "",
+                                      labelText: MyStrings.offeryourRate.tr,
+                                      radius: Dimensions.mediumRadius,
+                                    ),
+                                    const SizedBox(height: Dimensions.space20),
+                                    InkWell(
+                                      onTap: () {
+                                        CustomBottomSheet(
+                                          child: Container(
+                                            height: context.height / 1.6,
+                                            color: MyColor.colorWhite,
+                                            child: const Column(
+                                              children: [BottomSheetHeaderRow()],
+                                            ),
+                                          ),
+                                        ).customBottomSheet(context);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(border: Border.all(color: MyColor.borderColor, width: 0.5), borderRadius: BorderRadius.circular(8)),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(MyStrings.paymentMethod.tr, style: regularDefault),
+                                              ],
+                                            ),
+                                            const Icon(Icons.arrow_drop_down, color: MyColor.colorGrey),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: Dimensions.space20),
+                                    RoundedButton(text: MyStrings.bookRide.tr, press: () {}),
+                                    const SizedBox(height: Dimensions.space10),
                                   ],
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: Dimensions.space20),
-                            RoundedButton(text: MyStrings.bookRide.tr, press: () {}),
-                            const SizedBox(height: Dimensions.space10),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
         );
       }),
     );
   }
 
-  PreferredSize _homeAppbar(BuildContext context) {
+  PreferredSize _homeAppbar(BuildContext context, HomeController controller) {
     return PreferredSize(
       preferredSize: Size(context.width, 160),
       child: Container(
+        height: 160,
         padding: Dimensions.screenPaddingHV,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage(
+            image: AssetImage(
               MyImages.appbarBG,
             ),
             fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(MyColor.colorGrey.withOpacity(0.3), BlendMode.overlay),
           ),
         ),
         child: Column(
@@ -241,8 +256,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     textStyle: boldLarge.copyWith(color: MyColor.colorWhite, fontSize: 18),
                   ),
                   Text(
-                    "775 Rolling Green Rd.",
+                    controller.currentAddress,
                     style: regularDefault.copyWith(color: MyColor.colorWhite, fontSize: 14, fontWeight: FontWeight.w400),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

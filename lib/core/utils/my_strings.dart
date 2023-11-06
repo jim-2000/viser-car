@@ -11,6 +11,14 @@ class MyStrings {
   static const String pickUplocation = "Pickup Location";
   static const String bookRide = "Book Ride";
 
+  static const String ride = "Ride";
+  static const String activeride = "Active Ride";
+  static const String completeRide = "Complete Ride";
+  static const String cancelRide = "Cancel Ride";
+
+  static const String viewBids = "View Bids";
+  static const String acceptBids = "Accept Ride";
+
   static const String withdrawInformation = "Withdraw Information";
   static const String withdrawLimit = "Withdraw Limit";
   static const String withdrawConfirm = "Withdraw Confirm";
@@ -22,7 +30,7 @@ class MyStrings {
   static const String fileDownloadedSuccess = "File downloaded successfully";
   static const String selectPaymentMethod = "Select PaymentMethod";
 
-  static const String appName = "Flutter Prime";
+  static const String appName = "ViserCar";
   static const String remark = "Remark";
   static const String any = "Any";
   static const String signUp = "SignUp";

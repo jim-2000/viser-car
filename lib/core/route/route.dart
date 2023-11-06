@@ -14,6 +14,7 @@ import 'package:customer/view/screens/auth/two_factor_screen/two_factor_verifica
 import 'package:customer/view/screens/edit_profile/edit_profile_screen.dart';
 import 'package:customer/view/screens/home/home_screen.dart';
 import 'package:customer/view/screens/privacy_policy/privacy_policy_screen.dart';
+import 'package:customer/view/screens/ride/ride_screen.dart';
 import 'package:customer/view/screens/splash/splash_screen.dart';
 import 'package:customer/view/screens/transaction/transactions_screen.dart';
 import 'package:get/get.dart';
@@ -58,6 +59,7 @@ class RouteHelper {
   static const String depositWebViewScreen = '/deposit_webView';
 
   static const String homeScreen = '/home_Screen';
+  static const String rideScreen = '/ride_Screen';
 
   List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -85,5 +87,6 @@ class RouteHelper {
     GetPage(name: kycScreen, page: () => const KycScreen()),
     GetPage(name: privacyScreen, page: () => const PrivacyPolicyScreen()),
     GetPage(name: homeScreen, page: () => const HomeScreen()),
+    GetPage(name: rideScreen, page: () => const RideScreen()),
   ];
 }
