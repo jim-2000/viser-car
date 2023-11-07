@@ -8,4 +8,5 @@ class MyIcons {
   static const String box = "assets/icon/box.svg";
   static const String bag = "assets/icon/bag.svg";
   static const String suv = "assets/icon/suv.svg";
+  static const String copy = "assets/icon/copy.svg";
 }

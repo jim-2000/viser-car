@@ -14,7 +14,7 @@ class RoundedButton extends StatelessWidget {
   final double cornerRadius;
   final bool isOutlined;
   final Widget? child;
-
+  final TextStyle? textStyle;
   const RoundedButton({
     Key? key,
     this.isColorChange = false,
@@ -28,6 +28,7 @@ class RoundedButton extends StatelessWidget {
     this.verticalPadding = 18,
     this.color = MyColor.primaryColor,
     this.textColor = MyColor.colorWhite,
+    this.textStyle,
   }) : super(key: key);
 
   @override
@@ -41,7 +42,12 @@ class RoundedButton extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
                 width: size.width * width,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(cornerRadius), color: isColorChange ? color : MyColor.getPrimaryButtonColor()),
-                child: Center(child: Text(text.tr, style: TextStyle(color: isColorChange ? textColor : MyColor.getPrimaryButtonTextColor(), fontSize: 14, fontWeight: FontWeight.w500)))),
+                child: Center(
+                  child: Text(
+                    text.tr,
+                    style: textStyle ?? TextStyle(color: isColorChange ? textColor : MyColor.getPrimaryButtonTextColor(), fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                )),
           )
         : isOutlined
             ? Material(
@@ -49,10 +55,16 @@ class RoundedButton extends StatelessWidget {
                   onTap: press,
                   splashColor: MyColor.getScreenBgColor(),
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
-                      width: size.width * width,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(cornerRadius), color: isColorChange ? color : MyColor.getPrimaryButtonColor()),
-                      child: Center(child: Text(text.tr, style: TextStyle(color: isColorChange ? textColor : MyColor.getPrimaryButtonTextColor(), fontSize: 14, fontWeight: FontWeight.w500)))),
+                    padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
+                    width: size.width * width,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(cornerRadius), color: isColorChange ? color : MyColor.getPrimaryButtonColor()),
+                    child: Center(
+                      child: Text(
+                        text.tr,
+                        style: textStyle ?? TextStyle(color: isColorChange ? textColor : MyColor.getPrimaryButtonTextColor(), fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
                 ),
               )
             : SizedBox(
@@ -64,7 +76,7 @@ class RoundedButton extends StatelessWidget {
                     style: ElevatedButton.styleFrom(backgroundColor: color, shadowColor: MyColor.transparentColor, padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding), textStyle: TextStyle(color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
                     child: Text(
                       text.tr,
-                      style: TextStyle(color: textColor),
+                      style: textStyle ?? TextStyle(color: textColor),
                     ),
                   ),
                 ),

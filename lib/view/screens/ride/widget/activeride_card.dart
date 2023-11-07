@@ -6,6 +6,7 @@ import 'package:customer/core/utils/my_images.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/core/utils/style.dart';
 import 'package:customer/core/utils/util.dart';
+import 'package:customer/view/components/buttons/icon_button.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
 import 'package:customer/view/components/divider/custom_divider.dart';
 import 'package:customer/view/components/image/custom_svg_picture.dart';
@@ -14,7 +15,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:get/get.dart';
 
 class ActiveRideCard extends StatelessWidget {
-  const ActiveRideCard({super.key});
+  bool isActive;
+  ActiveRideCard({super.key, required this.isActive});
 
   @override
   Widget build(BuildContext context) {
@@ -195,81 +197,124 @@ class ActiveRideCard extends StatelessWidget {
           const SizedBox(
             height: Dimensions.space20,
           ),
-          // CustomPaint(
-          //   painter: DottedBorderPainter(),
-          //   child: const SizedBox(
-          //     width: double.infinity,
-          //   ),
-          // ),
-          const SizedBox(
-            height: Dimensions.space20,
-          ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: MyColor.colorGrey2.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(Dimensions.mediumRadius),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  MyStrings.ridePlaced,
-                  style: boldDefault.copyWith(color: MyColor.colorGrey),
+          isActive
+              ? Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: MyColor.colorGrey2.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(Dimensions.mediumRadius),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "${MyStrings.otp}:874514",
+                                style: boldDefault.copyWith(color: MyColor.colorGrey),
+                              ),
+                              const SizedBox(
+                                width: Dimensions.space2 + 1,
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: const CustomSvgPicture(
+                                  image: MyIcons.copy,
+                                  color: MyColor.bodyTextColor,
+                                  height: 14,
+                                  width: 12,
+                                ),
+                              )
+                            ],
+                          ),
+                          Text(
+                            DateConverter.estimatedDate(DateTime.now()),
+                            style: boldDefault.copyWith(color: MyColor.colorGrey),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: Dimensions.space20,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomIconButton(
+                            name: "Message",
+                            icon: MyImages.message,
+                            isSvg: false,
+                            press: () {},
+                          ),
+                        ),
+                        const SizedBox(
+                          width: Dimensions.space10,
+                        ),
+                        Expanded(
+                          child: CustomIconButton(
+                            name: "Call",
+                            icon: MyImages.teliPhone,
+                            isSvg: false,
+                            press: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: Dimensions.space10,
+                    ),
+                    RoundedButton(
+                      text: "SOS",
+                      press: () {},
+                      color: MyColor.colorBlack,
+                      cornerRadius: 8,
+                      textStyle: boldLarge.copyWith(
+                        color: MyColor.colorWhite,
+                        fontSize: 16,
+                      ),
+                    )
+                  ],
+                )
+              : Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: MyColor.colorGrey2.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(Dimensions.mediumRadius),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            MyStrings.ridePlaced,
+                            style: boldDefault.copyWith(color: MyColor.colorGrey),
+                          ),
+                          Text(
+                            DateConverter.estimatedDate(DateTime.now()),
+                            style: boldDefault.copyWith(color: MyColor.colorGrey),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: Dimensions.space20,
+                    ),
+                    RoundedButton(
+                      text: "View Bids(02)",
+                      press: () {},
+                      cornerRadius: 8,
+                      verticalPadding: 15,
+                    ),
+                  ],
                 ),
-                Text(
-                  DateConverter.estimatedDate(DateTime.now()),
-                  style: boldDefault.copyWith(color: MyColor.colorGrey),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: Dimensions.space20,
-          ),
-          RoundedButton(
-            text: "View Bids(02)",
-            press: () {},
-            cornerRadius: 8,
-            verticalPadding: 15,
-          ),
           const SizedBox(
             height: Dimensions.space10,
           ),
         ],
       ),
     );
-  }
-}
-
-class DottedBorderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFF9E9E9E)
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    double dashWidth = 3; // Width of each dash
-    double dashSpace = 5; // Space between each dash
-
-    double startX = 0;
-
-    // Draw bottom border
-    startX = 0;
-    while (startX < size.width) {
-      canvas.drawLine(
-        Offset(startX, size.height),
-        Offset(startX + dashWidth, size.height),
-        paint,
-      );
-      startX += dashWidth + dashSpace;
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    throw UnimplementedError();
   }
 }

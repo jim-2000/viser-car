@@ -11,12 +11,16 @@ class MyStrings {
   static const String pickUplocation = "Pickup Location";
   static const String bookRide = "Book Ride";
 
+  static const String pickUplocation_ = "Pickup location";
+
   static const String ride = "Ride";
+  static const String rideDetails = "Ride Details";
   static const String ridePlace = "Ride Place";
   static const String ridePlaced = "Ride Placed";
   static const String ridecompleted = "Ride Complated";
   static const String ridecancel = "Ride Cancel";
   static const String activeride = "Active Ride";
+  static const String acceptride = "Accept Ride";
   static const String completeRide = "Complete Ride";
   static const String cancelRide = "Cancel Ride";
 
@@ -27,7 +31,7 @@ class MyStrings {
   static const String viewBids = "View Bids";
   static const String acceptBids = "Accept Ride";
   static const String review = "Review";
-
+  static const String otp = "OTP";
   static const String withdrawInformation = "Withdraw Information";
   static const String withdrawLimit = "Withdraw Limit";
   static const String withdrawConfirm = "Withdraw Confirm";
@@ -167,6 +171,8 @@ class MyStrings {
   static const String noDataToShow = 'Sorry! there are no data to show';
   static const String noData = 'No data found';
   static const String paymentMethod = 'Payment Method';
+  static const String payment = 'Payment';
+  static const String paymentPending = 'Payment Pending';
   static const String iAgreeWith = "I agree with the";
 
   static const String createNewPassword = "Create new password";
@@ -268,4 +274,6 @@ class MyStrings {
     MyLanguageModel(languageName: 'English', countryCode: 'US', languageCode: 'en'),
     MyLanguageModel(languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
   ];
+
+  static const String riderulse = "Ride Rules";
 }
