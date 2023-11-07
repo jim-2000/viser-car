@@ -10,6 +10,10 @@ class MyColor {
   static const Color borderColor = Color(0xffD9D9D9);
   static const Color bodyTextColor = Color(0xFF747475);
 
+  static const Color rideTitle = Color(0xff212121);
+  static const Color rideSub = Color(0xff9E9E9E);
+  static const Color bodyText = Color(0xff757575);
+
   static const Color titleColor = Color(0xff373e4a);
   static const Color labelTextColor = Color(0xff444444);
   static const Color smallTextColor1 = Color(0xff555555);
@@ -34,8 +38,10 @@ class MyColor {
   static const Color colorBlack = Color(0xff262626);
   static const Color colorGreen = Color(0xff28C76F);
   static const Color colorRed = Color(0xFFD92027);
+  static const Color colorYellow = Color(0xFFFEC400);
   static const Color colorGrey = Color(0xff555555);
   static const Color colorGrey2 = Color(0xffE0E0E0);
+  static const Color colorGreyIcon = Color(0xff424242);
   static const Color transparentColor = Colors.transparent;
 
   static const Color greenSuccessColor = greenP;

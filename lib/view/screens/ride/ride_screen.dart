@@ -2,6 +2,10 @@ import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/view/components/app-bar/custom_appbar.dart';
+import 'package:customer/view/screens/ride/widget/activeride_card.dart';
+import 'package:customer/view/screens/ride/widget/cancel_ride_card.dart';
+import 'package:customer/view/screens/ride/widget/complete_ride_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +23,7 @@ class _RideScreenState extends State<RideScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColor.screenBgColor,
-      appBar: CustomAppBar(title: MyStrings.ride),
+      appBar: const CustomAppBar(title: MyStrings.ride),
       body: SingleChildScrollView(
         padding: Dimensions.screenPaddingHV,
         child: Column(
@@ -30,7 +34,14 @@ class _RideScreenState extends State<RideScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: Dimensions.space20),
+                    margin: const EdgeInsets.only(bottom: Dimensions.space20),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: MyColor.colorGrey,
+                        ),
+                      ),
+                    ),
                     child: TabBar(
                       splashBorderRadius: BorderRadius.circular(25),
                       dividerColor: Colors.black,
@@ -60,6 +71,22 @@ class _RideScreenState extends State<RideScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  Builder(builder: (_) {
+                    if (selectedIndex == 0) {
+                      return Column(
+                        children: List.generate(10, (index) => const ActiveRideCard()),
+                      );
+                    } else if (selectedIndex == 1) {
+                      return Column(children: List.generate(10, (index) => const CompleteRideCard()));
+                    } else {
+                      return Column(
+                        children: List.generate(10, (index) => const CancelRideCard()),
+                      );
+                    }
+                  }),
+                  const SizedBox(
+                    height: Dimensions.space20,
                   ),
                 ],
               ),

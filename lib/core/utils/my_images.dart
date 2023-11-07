@@ -7,6 +7,7 @@ class MyImages {
   static const String banner = "assets/img/banner.png";
   static const String appbarBG = "assets/img/appbarBG.png";
   static const String avatar = "assets/img/avatar.png";
+  static const String line = "assets/img/line.png";
 
   static const String profile = "assets/images/profile.png";
   static const String home = "assets/images/home.png";

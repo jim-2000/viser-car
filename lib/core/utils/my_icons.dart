@@ -3,4 +3,9 @@ class MyIcons {
   static const String car = "assets/icon/car.svg";
   static const String intercityCar = "assets/icon/intercityCar.svg";
   static const String parcel = "assets/icon/parcel.svg";
+  static const String mapYellow = "assets/icon/mapYellow.svg";
+  static const String mapRed = "assets/icon/mapRed.svg";
+  static const String box = "assets/icon/box.svg";
+  static const String bag = "assets/icon/bag.svg";
+  static const String suv = "assets/icon/suv.svg";
 }

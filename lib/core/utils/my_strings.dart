@@ -12,12 +12,21 @@ class MyStrings {
   static const String bookRide = "Book Ride";
 
   static const String ride = "Ride";
+  static const String ridePlace = "Ride Place";
+  static const String ridePlaced = "Ride Placed";
+  static const String ridecompleted = "Ride Complated";
+  static const String ridecancel = "Ride Cancel";
   static const String activeride = "Active Ride";
   static const String completeRide = "Complete Ride";
   static const String cancelRide = "Cancel Ride";
 
+  static const String reviewForDriver = "Review for Driver";
+  static const String ratingDriver = "Rating driver";
+  static const String whatCouldBebetter = "What could be better?";
+
   static const String viewBids = "View Bids";
   static const String acceptBids = "Accept Ride";
+  static const String review = "Review";
 
   static const String withdrawInformation = "Withdraw Information";
   static const String withdrawLimit = "Withdraw Limit";
