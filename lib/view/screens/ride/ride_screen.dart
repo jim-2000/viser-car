@@ -1,13 +1,10 @@
-import 'package:customer/core/route/route.dart';
 import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/view/components/app-bar/custom_appbar.dart';
 import 'package:customer/view/screens/ride/active_ride/active_ride_screen.dart';
 import 'package:customer/view/screens/ride/complete_ride/complete_ride_section.dart';
-import 'package:customer/view/screens/ride/widget/activeride_card.dart';
 import 'package:customer/view/screens/ride/widget/cancel_ride_card.dart';
-import 'package:customer/view/screens/ride/widget/complete_ride_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +44,7 @@ class _RideScreenState extends State<RideScreen> {
                     ),
                     child: TabBar(
                       splashBorderRadius: BorderRadius.circular(25),
-                      dividerColor: Colors.black,
+                      dividerColor: MyColor.bodyText,
                       indicator: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(color: MyColor.primaryColor, width: 2),

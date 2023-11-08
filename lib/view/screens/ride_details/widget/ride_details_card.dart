@@ -7,10 +7,8 @@ import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/core/utils/style.dart';
 import 'package:customer/core/utils/util.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
-import 'package:customer/view/components/divider/custom_divider.dart';
 import 'package:customer/view/components/image/custom_svg_picture.dart';
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:get/get.dart';
 
 class RideDetailsCard extends StatelessWidget {
@@ -70,7 +68,7 @@ class RideDetailsCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               MyStrings.pickUplocation_.tr,
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -122,7 +120,7 @@ class RideDetailsCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               MyStrings.destination,
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),

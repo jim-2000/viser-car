@@ -1,9 +1,9 @@
+import 'package:customer/core/route/route.dart';
 import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
 import 'package:customer/core/utils/my_images.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/core/utils/style.dart';
-import 'package:customer/core/utils/util.dart';
 import 'package:customer/data/controller/home/home_controller.dart';
 import 'package:customer/data/repo/home/home_repo.dart';
 import 'package:customer/data/services/api_service.dart';
@@ -11,15 +11,13 @@ import 'package:customer/view/components/bottom-sheet/bottom_sheet_header_row.da
 import 'package:customer/view/components/bottom-sheet/custom_bottom_sheet.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
 import 'package:customer/view/components/custom_loader/custom_loader.dart';
-import 'package:customer/view/components/image/custom_svg_picture.dart';
 import 'package:customer/view/components/text-form-field/custom_text_field.dart';
-import 'package:customer/view/components/text-form-field/my_custom_text_field.dart';
 import 'package:customer/view/components/text/header_text.dart';
+import 'package:customer/view/components/timeline/custom_timeLine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Position? _currentPosition;
-  String _currentAddress = "";
+  final String _currentAddress = "";
 
   @override
   void initState() {
@@ -127,6 +125,60 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               const SizedBox(height: Dimensions.space20),
+                              SizedBox(
+                                height: Dimensions.space50 + 100,
+                                child: CustomTimeLine(
+                                  firstWidget: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "From",
+                                          style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: Dimensions.space5 - 1,
+                                      ),
+                                      Text(
+                                        "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+                                        style: regularDefault.copyWith(color: MyColor.bodyText, fontSize: 12, fontWeight: FontWeight.w600),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                  secondWidget: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "To",
+                                          style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: Dimensions.space5 - 1,
+                                      ),
+                                      Text(
+                                        "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+                                        style: regularDefault.copyWith(color: MyColor.bodyText, fontSize: 12, fontWeight: FontWeight.w600),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: Dimensions.space20),
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
                                 decoration: BoxDecoration(color: MyColor.colorWhite, borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)), boxShadow: [
@@ -197,7 +249,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: Dimensions.space20),
-                                    RoundedButton(text: MyStrings.bookRide.tr, press: () {}),
+                                    RoundedButton(
+                                      text: MyStrings.bookRide.tr,
+                                      press: () {
+                                        Get.toNamed(RouteHelper.rideScreen);
+                                      },
+                                      isOutlined: true,
+                                      cornerRadius: 8,
+                                    ),
                                     const SizedBox(height: Dimensions.space10),
                                   ],
                                 ),

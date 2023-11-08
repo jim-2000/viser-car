@@ -4,7 +4,6 @@ import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
 import 'package:customer/core/utils/my_images.dart';
 import 'package:customer/core/utils/my_strings.dart';
-import 'package:customer/view/screens/bottom_nav_section/home/home_screen.dart';
 import 'package:customer/view/screens/bottom_nav_section/menu/menu_screen.dart';
 import 'package:customer/view/screens/withdraw/withdraw_history/withdraw_screen.dart';
 

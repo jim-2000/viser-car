@@ -1,4 +1,3 @@
-import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/view/screens/ride/widget/complete_ride_card.dart';
 import 'package:flutter/material.dart';
 

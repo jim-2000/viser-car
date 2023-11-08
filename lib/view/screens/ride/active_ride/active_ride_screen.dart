@@ -1,5 +1,4 @@
 import 'package:customer/core/route/route.dart';
-import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/view/screens/ride/widget/activeride_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

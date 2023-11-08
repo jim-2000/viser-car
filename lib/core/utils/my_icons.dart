@@ -1,5 +1,6 @@
 class MyIcons {
   static const String moto = "assets/icon/moto.svg";
+  static const String star = "assets/icon/star.svg";
   static const String car = "assets/icon/car.svg";
   static const String intercityCar = "assets/icon/intercityCar.svg";
   static const String parcel = "assets/icon/parcel.svg";
@@ -9,4 +10,5 @@ class MyIcons {
   static const String bag = "assets/icon/bag.svg";
   static const String suv = "assets/icon/suv.svg";
   static const String copy = "assets/icon/copy.svg";
+  static const String avatar = "assets/icon/avatar.svg";
 }

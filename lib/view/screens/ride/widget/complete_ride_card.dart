@@ -11,7 +11,7 @@ import 'package:customer/view/components/buttons/rounded_button.dart';
 import 'package:customer/view/components/image/custom_svg_picture.dart';
 import 'package:customer/view/screens/ride/widget/review_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CompleteRideCard extends StatelessWidget {
   bool isPaymentDone;
@@ -37,8 +37,8 @@ class CompleteRideCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.asset(
-                    MyImages.profile,
+                  SvgPicture.asset(
+                    MyIcons.avatar,
                     height: 45,
                     width: 45,
                   ),
@@ -50,20 +50,28 @@ class CompleteRideCard extends StatelessWidget {
                     children: [
                       Text(
                         "Martin Komas",
-                        style: regularDefault.copyWith(fontSize: 16),
+                        style: boldDefault.copyWith(fontSize: Dimensions.fontLarge),
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.star,
-                            size: 12,
+                          const CustomSvgPicture(
+                            image: MyIcons.star,
+                            height: Dimensions.space12,
+                            width: Dimensions.space12,
                             color: MyColor.colorYellow,
+                          ),
+                          const SizedBox(
+                            width: Dimensions.space2,
                           ),
                           Text(
                             "4.5",
-                            style: boldDefault.copyWith(color: MyColor.colorGrey, fontSize: Dimensions.fontDefault, fontWeight: FontWeight.w700),
+                            style: boldDefault.copyWith(
+                              color: MyColor.rideSub,
+                              fontSize: Dimensions.fontDefault,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ],
                       ),
@@ -104,7 +112,7 @@ class CompleteRideCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               "From",
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -128,6 +136,7 @@ class CompleteRideCard extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(left: Dimensions.space12),
+            height: Dimensions.space17,
             child: Image.asset(
               MyImages.line,
             ),
@@ -156,7 +165,7 @@ class CompleteRideCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               "To",
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -249,13 +258,13 @@ class CompleteRideCard extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(
+            height: Dimensions.space25 - 1,
+          ),
           isReviewDone
               ? const SizedBox.shrink()
               : Column(
                   children: [
-                    const SizedBox(
-                      height: Dimensions.space20,
-                    ),
                     RoundedButton(
                       text: MyStrings.review,
                       press: () {
@@ -266,6 +275,10 @@ class CompleteRideCard extends StatelessWidget {
                       verticalPadding: 15,
                       color: MyColor.rideTitle,
                       textColor: MyColor.colorWhite,
+                      isOutlined: true,
+                    ),
+                    const SizedBox(
+                      height: Dimensions.space12,
                     ),
                   ],
                 ),
@@ -273,11 +286,9 @@ class CompleteRideCard extends StatelessWidget {
               ? const SizedBox.shrink()
               : Column(
                   children: [
-                    const SizedBox(
-                      height: Dimensions.space20,
-                    ),
                     RoundedButton(
                       text: MyStrings.paymentPending,
+                      isOutlined: true,
                       press: () {
                         //note: open reveiw bottom sheet form here
                         CustomBottomSheet(child: const ReviewBottomSheet()).customBottomSheet(context);

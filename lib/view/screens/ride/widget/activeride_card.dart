@@ -8,11 +8,8 @@ import 'package:customer/core/utils/style.dart';
 import 'package:customer/core/utils/util.dart';
 import 'package:customer/view/components/buttons/icon_button.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
-import 'package:customer/view/components/divider/custom_divider.dart';
 import 'package:customer/view/components/image/custom_svg_picture.dart';
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:get/get.dart';
 
 class ActiveRideCard extends StatelessWidget {
   bool isActive;
@@ -72,7 +69,7 @@ class ActiveRideCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               "From",
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -82,7 +79,7 @@ class ActiveRideCard extends StatelessWidget {
                           ),
                           Text(
                             "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                            style: regularDefault.copyWith(color: Colors.grey.shade500, fontSize: 12, fontWeight: FontWeight.w600),
+                            style: regularDefault.copyWith(color: MyColor.bodyText, fontSize: 12, fontWeight: FontWeight.w600),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -124,7 +121,7 @@ class ActiveRideCard extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               "To",
-                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontLarge, fontWeight: FontWeight.w700),
+                              style: boldLarge.copyWith(color: MyColor.rideTitle, fontSize: Dimensions.fontMedium, fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -164,7 +161,7 @@ class ActiveRideCard extends StatelessWidget {
                               Container(
                                 height: 15,
                                 margin: const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(border: Border.all(color: MyColor.colorGrey, width: .5)),
+                                decoration: BoxDecoration(border: Border.all(color: MyColor.rideSub, width: .5)),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,7 +210,7 @@ class ActiveRideCard extends StatelessWidget {
                             children: [
                               Text(
                                 "${MyStrings.otp}:874514",
-                                style: boldDefault.copyWith(color: MyColor.colorGrey),
+                                style: boldDefault.copyWith(color: MyColor.bodyText),
                               ),
                               const SizedBox(
                                 width: Dimensions.space2 + 1,
@@ -268,8 +265,9 @@ class ActiveRideCard extends StatelessWidget {
                     RoundedButton(
                       text: "SOS",
                       press: () {},
-                      color: MyColor.colorBlack,
                       cornerRadius: 8,
+                      isOutlined: true,
+                      color: MyColor.colorBlack,
                       textStyle: boldLarge.copyWith(
                         color: MyColor.colorWhite,
                         fontSize: 16,
@@ -300,13 +298,13 @@ class ActiveRideCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: Dimensions.space20,
+                      height: Dimensions.space25 - 1,
                     ),
                     RoundedButton(
                       text: "View Bids(02)",
                       press: () {},
                       cornerRadius: 8,
-                      verticalPadding: 15,
+                      isOutlined: true,
                     ),
                   ],
                 ),

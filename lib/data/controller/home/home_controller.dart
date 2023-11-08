@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:customer/core/utils/my_icons.dart';
-import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/data/model/general_setting/general_setting_response_model.dart';
 import 'package:customer/data/repo/home/home_repo.dart';
 import 'package:customer/view/components/snack_bar/show_custom_snackbar.dart';

@@ -1,15 +1,10 @@
-import 'package:customer/core/helper/date_converter.dart';
 import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
-import 'package:customer/core/utils/my_icons.dart';
 import 'package:customer/core/utils/my_images.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/core/utils/style.dart';
 import 'package:customer/core/utils/util.dart';
-import 'package:customer/view/components/bottom-sheet/custom_bottom_sheet.dart';
 import 'package:customer/view/components/buttons/rounded_button.dart';
-import 'package:customer/view/components/image/custom_svg_picture.dart';
-import 'package:customer/view/screens/ride/widget/review_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -124,7 +119,7 @@ class BidCard extends StatelessWidget {
 
   Widget rulseData({required String text}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           Container(

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:customer/core/route/route.dart';
 import 'package:customer/core/utils/dimensions.dart';
 import 'package:customer/core/utils/my_color.dart';
-import 'package:customer/core/utils/my_images.dart';
 import 'package:customer/core/utils/my_strings.dart';
 import 'package:customer/core/utils/style.dart';
 import 'package:customer/data/controller/auth/login_controller.dart';
